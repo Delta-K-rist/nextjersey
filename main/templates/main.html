@@ -11,9 +11,25 @@
 <h5>Class:</h5>
 <p>{{ class }}</p>
 
+<h5>Logged in as:</h5>
+<p>{{ username }}</p>
+
 <a href="{% url 'main:create_product' %}">
   <button>+ Add Product</button>
 </a>
+
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+
+<a href="?filter=all">
+    <button type="button">All Products</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My Products</button>
+</a> 
 
 <hr>
 

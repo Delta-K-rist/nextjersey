@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 
 class Product(models.Model):
     CATEGORY_CHOICES = [
@@ -20,6 +21,8 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_featured = models.BooleanField(default=False)
     item_views = models.PositiveIntegerField(default=0)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) 
 
     # class Meta:
     #     indexes = [

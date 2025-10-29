@@ -39,7 +39,7 @@ Tanpa `csrf_token`, aplikasi menjadi rentan terhadap serangan. Penyerang dapat m
 
 ## **Q5:** Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
-Mirip seperti pengerjaan Tugas 2 sebelumnya, saya mulai dengan tutorial dan bertanya kepada LLM (read: ChatGPT) untuk meningkatkan pemahaman dan bertanya hal yang membingungkan selama pengerjaan tugas ini. Step saya dalam pemenuhan checklist adalah seperti ini:
+Mirip seperti pengerjaan Tugas 2 sebelumnya, saya mulai dengan tutorial dan bertanya kepada LLM (read: chatgpt/claude) untuk meningkatkan pemahaman dan bertanya hal yang membingungkan selama pengerjaan tugas ini. Step saya dalam pemenuhan checklist adalah seperti ini:
 
 1. Membuat fungsi view dan URL routing untuk menampilkan data `Product` dalam berbagai format (`XML`, `JSON`, `XML by ID`, dan `JSON by ID`) sesuai contoh tutorial.
 2. Menambahkan halaman `/add-product` dengan form untuk membuat `Product` baru dan halaman `/product/<str:id>` untuk detail `Product`.
@@ -96,8 +96,8 @@ Cuma mungkin another feedback sedikit, it'd be nice kalau di tiap sesi tutorial 
 ---
 ## **Q1:** Jelaskan bagaimana cara kamu mengimplementasikan checklist secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
-- Pertama buka tutorial, `print as pdf`, lalu saya upload tutorial ke chatgpt buat memberikan chatgpt context akan pekerjaan saya. Tujuannya adalah ketika ada error atau istilah yang belum pernah dengar atau penjelasan yang saya rasa membingungkan, saya bisa tanya chatgpt. Better, saya bisa konfigurasikan cara penjelasannya sesuai preferensi saya agar saya lebih mudah memahaminya (saya lebih mudah paham jika dijelaskan dengan pendekatan seperti ini: Misal ada sebongkah lines of codes, saya ingin tahu alasan kenapa diperlukan those line of codes dan apa impactnya terhadap goal overall, dan contoh langsung supaya lebih terbayang. Dengan pendekatan penjelasan ini, saya jadi jauh lebih memahami materi, dan chatgpt easily help me done that.)
-- Saya lalu baca sekilas checklist tugas, apa aja yang diharapkan untuk dilakukan, tanya chatgpt juga kalau tidak paham maksudnya apa.
+- Pertama buka tutorial, `print as pdf`, lalu saya upload tutorial ke chatgpt/claude buat memberikan chatgpt/claude context akan pekerjaan saya. Tujuannya adalah ketika ada error atau istilah yang belum pernah dengar atau penjelasan yang saya rasa membingungkan, saya bisa tanya chatgpt/claude. Better, saya bisa konfigurasikan cara penjelasannya sesuai preferensi saya agar saya lebih mudah memahaminya (saya lebih mudah paham jika dijelaskan dengan pendekatan seperti ini: Misal ada sebongkah lines of codes, saya ingin tahu alasan kenapa diperlukan those line of codes dan apa impactnya terhadap goal overall, dan contoh langsung supaya lebih terbayang. Dengan pendekatan penjelasan ini, saya jadi jauh lebih memahami materi, dan chatgpt/claude easily help me done that.)
+- Saya lalu baca sekilas checklist tugas, apa aja yang diharapkan untuk dilakukan, tanya chatgpt/claude juga kalau tidak paham maksudnya apa.
 - Mengimplementasikan setiap step dari tutorial, lalu setiap ada perubahan (perbedaan dengan tugas), saya langsung edit implementasi tutorial sesuai dengan tugas.
 - Selama local server udah bisa di run, especially saat mengedit file `html`, saya selalu check di lokal bagaimana perubahan yang lakukan berdampak ke presentasi dari webnya. Supaya lebih kebayang each line of htmlnya gunanya untuk apa.
 
