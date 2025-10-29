@@ -2,6 +2,99 @@
 ### Deltakristiano Kurniaputra - NPM: 2406425810
 #### Link Deployment: 
 
+
+<details><summary>Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django</summary>
+
+
+---
+## **Q1:** Apa itu `Django AuthenticationForm`? Jelaskan juga kelebihan dan kekurangannya.
+
+`AuthenticationForm` adalah komponen form autentikasi bawaan Django yang dirancang khusus untuk memfasilitasi proses login pengguna dengan cara yang aman dan efisien.
+
+Kelebihan:
+
+- Bisa langsung dipakai "off the shelf". Form ini dapat langsung diintegrasikan ke dalam aplikasi Django tanpa memerlukan konfigurasi yang rumit untuk classic common login.
+Dari perspektif keamanan, Django telah membangun mekanisme perlindungan yang solid di dalam form ini. Sistem hashing password otomatis dan validasi kredensial pengguna sudah tertanam, sehingga meminimalkan potensi kerentanan keamanan umum dalam proses autentikasi.
+
+- Selain itu, juga sudah terintegrasi dengan baik terhadap ekosistem Django. Hal ini memungkinkan sinkronisasi yang baik dengan session management, middleware, dan decorator seperti `@login_required`.
+Ini juga memberikan pengalaman pengguna yang lebih baik dengan pesan error yang jelas dan informatif ketika terjadi kesalahan pada username atau password.
+
+Kekurangan: 
+
+- Fleksibilitas kustomisasi kurang karena off the shelf. Misalnya ketika membutuhkan fitur autentikasi yang lebih spesifik, seperti login berbasis email, OTP (One-Time Password), atau integrasi social login yang semuanya memerlukan form kustom.
+
+- Desain visual juga belum bawaan. Karena tanpa styling bawaan, mengharuskan kita developer untuk menambahkan styling CSS dan desain UI sendiri.
+
+- Fitur-fitur keamanan yang lebih advanced seperti two-factor authentication (2FA), CAPTCHA, atau rate limiting untuk mencegah brute force attack perlu diimplementasikan secara manual dan terpisah.
+  
+---
+## **Q2:** Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+
+# Autentikasi vs Otorisasi dalam Django
+
+Autentikasi: proses verifikasi identitas user untuk memastikan mereka adalah siapa yang mereka klaim melalui validasi kredensial seperti username dan password.
+
+Otorisasi: menentukan hak akses pengguna, apa saja yang mereka bisa akses/lakukan, setelah autentikasi berhasil.
+
+Django mengimplementasikan kedua konsep tersebut melalui modul `django.contrib.auth`. Untuk autentikasi, Django menyediakan `AuthenticationForm` dan middleware yang mengelola validasi sesi pengguna secara otomatis. 
+Untuk otorisasi, Django menggunakan sistem izin berbasis role, pengelompokan grup, dan decorator seperti `@login_required` dan `@permission_required` untuk mengontrol akses terhadap view dan resource berdasarkan izin pengguna.
+
+---
+## **Q3:** Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+
+Cookies:
+
+- Keunggulan: Cookies disimpan langsung di browser pengguna, mengurangi beban pada server. Selama pengaturan tanggal expired tepat, cookies dapat mempertahankan data user lintas session browser. Aksesibilitas dari klien juga mudah melalui JavaScript, memberikan fleksibilitas dalam manipulasi data di front end.
+
+- Kekurangan: Kapasitas penyimpanan terbatas hanya sekitar 4KB per cookie. Keamanan juga menjadi risiko karena cookies rentan terhadap manipulasi dan serangan seperti XSS atau CSRF jika tidak dienkripsi atau di-sign dengan baik. Setiap request HTTP mengirimkan cookies ke server, menambah overhead jaringan. Selain itu, pengguna atau browser dapat memblokir cookies berdasarkan pengaturan privasi mereka.
+
+Session:
+
+- Kelebihan: Data session disimpan di server, memberikan keamanan yang jauh lebih tinggi dan meminimalkan risiko manipulasi oleh pengguna. Session juga mendukung penyimpanan data dalam jumlah yang lebih besar dan lebih kompleks dibandingkan cookies, cocok untuk informasi sensitif atau terstruktur.
+
+- Kekurangan: Setiap session memerlukan alokasi memori atau storage backend di server, meningkatkan beban infrastruktur terutama dengan jumlah pengguna aktif yang besar. Session memiliki waktu hidup yang relatif pendek dan tidak bertahan antar browser tanpa konfigurasi khusus. Session masih bergantung pada session ID yang umumnya disimpan dalam cookie untuk melacak identitas pengguna, sehingga tetap memiliki beberapa kerentanan inherited dari cookies.
+
+---
+## **Q4:** Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+
+Cookies tidak aman secara default karena disimpan di browser pengguna dan rentan terhadap berbagai serangan. Risiko utama meliputi manipulasi cookie di mana pengguna dapat mengubah nilai cookie, session hijacking ketika penyerang mencuri session ID untuk mengakses akun pengguna, dan serangan XSS yang memungkinkan attacker membaca atau mengubah cookie melalui kode JavaScript berbahaya.
+
+Django menerapkan beberapa lapisan perlindungan untuk mengamankan cookies. Signed cookies memastikan integritas data dengan mendeteksi jika cookie telah dimodifikasi. Flag HttpOnly mencegah akses cookie dari JavaScript, mengurangi risiko pencurian melalui XSS. Flag Secure memastikan cookies hanya dikirimkan melalui koneksi HTTPS terenkripsi, melindungi dari penyadapan di jalur transmisi.
+Selain itu, Django mengimplementasikan CSRF token pada setiap form untuk memvalidasi bahwa request berasal dari aplikasi legitimate, bukan dari situs berbahaya pihak ketiga. Kombinasi mekanisme ini membuat penggunaan cookies untuk session dan autentikasi menjadi relatif aman, asalkan aplikasi berjalan di atas HTTPS dan best practices keamanan lainnya diterapkan dengan konsisten.
+
+
+---
+
+## **Q5:**  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+Mirip seperti pengerjaan Tugas-tugas sebelumnya, saya mulai dengan tutorial dan bertanya kepada LLM (read: chatgpt/claude) untuk meningkatkan pemahaman dan bertanya hal yang membingungkan selama pengerjaan tugas ini. Step saya dalam pemenuhan checklist adalah seperti ini:
+
+1. Mengintegrasikan `User` model dari `django.contrib.auth.models` untuk menghubungkan produk dengan pengguna, kemudian mengembangkan fungsi registrasi, login, dan logout di `views.py` menggunakan `UserCreationForm` dan `AuthenticationForm`.
+
+2. Membuat template HTML untuk halaman registrasi, login, dan logout, serta mendaftarkan endpoint URL di `urls.py` untuk mengarahkan request ke fungsi-fungsi autentikasi yang sesuai.
+
+3. Memodifikasi halaman utama untuk menampilkan informasi pengguna yang sedang login seperti username dan last_login melalui session atau cookies.
+
+4. Membuat dua akun pengguna berbeda dan mengisi masing-masing dengan tiga produk dummy.
+
+5. Melakukan commit ke GitHub, dan mendeploy ke PWS untuk production.
+
+---
+ 
+- [X] Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya.
+- [X] Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal.
+- [X] Menghubungkan model Product dengan User.
+- [X] Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi.
+- [X] Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+  - [X] Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya.
+  - [X] Apa perbedaan antara autentikasi dan otorisasi? Bagaimana Django mengimplementasikan kedua konsep tersebut?
+  - [X] Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+  - [X] Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+  - [X] Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- [X] Melakukan add-commit-push ke GitHub.
+
+</details>
+
 <details><summary>Tugas 3: Implementasi Form dan Data Delivery pada Django</summary>
 
 ---
