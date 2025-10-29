@@ -2,7 +2,7 @@
 ### Deltakristiano Kurniaputra - NPM: 2406425810
 #### Link Deployment: 
 
-<!-- <details><summary>Tugas 3: Implementasi Form dan Data Delivery pada Django</summary> -->
+<details><summary>Tugas 3: Implementasi Form dan Data Delivery pada Django</summary>
 
 ---
 ## **Q1:** Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
@@ -57,11 +57,10 @@ Cuma mungkin another feedback sedikit, it'd be nice kalau di tiap sesi tutorial 
 
 ---
 ## Postman:
-<img width="668" height="390" alt="image" src="![gambar t2](nextjersey/gambar-t2.png)" />
-<img width="1375" height="937" alt="image" src="![gambar-t3-json-id](nextjersey/gambar-t3-json-id.jpg)" />
-<img width="1436" height="942" alt="image" src="![gambar-t3-xml-id](nextjersey/gambar-t3-xml-id.jpg)" />
-<img width="1436" height="918" alt="image" src="![gambar-t3-json](nextjersey/gambar-t3-json.jpg)" />
-<img width="1430" height="920" alt="image" src="![gambar-t3-xml](nextjersey/gambar-t3-xml.jpg)" />
+<img width="1280" height="683" alt="gambar-t3-xml-id" src="gambar-t3-xml-id.jpg" />
+<img width="1280" height="683" alt="gambar-t3-xml" src="gambar-t3-xml.jpg" />
+<img width="1280" height="683" alt="gambar-t3-json-id" src="gambar-t3-json-id.jpg" />
+<img width="1280" height="683" alt="gambar-t3-json" src="gambar-t3-json.jpg" />
 
 (Kalo gabisa diakses, buka aja file `gambar-t3-<format>` yang ada di repo ini)
 
@@ -117,7 +116,7 @@ Berikut langkah-langkahnya untuk menyelesaikan checklist:
 ## **Q2:** Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 
 \
-<img width="668" height="390" alt="image" src="![gambar t1](nextjersey/gambar-t2.png" /> \
+<img width="1019" height="660" alt="gambar-t2" src="gambar-t2.png" />
 (Made in Miro)
 (Kalo gabisa diakses, buka aja file `gambar-t2.png` yang ada di repo ini)
 
