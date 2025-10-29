@@ -30,8 +30,6 @@ Kekurangan:
 ---
 ## **Q2:** Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
 
-# Autentikasi vs Otorisasi dalam Django
-
 Autentikasi: proses verifikasi identitas user untuk memastikan mereka adalah siapa yang mereka klaim melalui validasi kredensial seperti username dan password.
 
 Otorisasi: menentukan hak akses pengguna, apa saja yang mereka bisa akses/lakukan, setelah autentikasi berhasil.
