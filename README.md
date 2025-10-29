@@ -1,7 +1,156 @@
 ## Tugas Individu - PBP C
 ### Deltakristiano Kurniaputra - NPM: 2406425810
-#### Link Deployment: 
+#### Link Deployment: https://deltakristiano-kurniaputra-nextjersey.pbp.cs.ui.ac.id/
 
+<details><summary>Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS</summary>
+
+---
+
+## **Q1:** Bagaimana cara browser menentukan gaya mana yang harus diterapkan ketika ada beberapa CSS rule yang mengatur elemen yang sama?
+
+Browser mengikuti sistem hierarki untuk menyelesaikan konflik CSS. Aturan dengan deklarasi `!important` akan selalu menang, melayani sebagai pengecualian terhadap semua prioritas lainnya.
+
+```css
+p { color: blue !important; }
+```
+
+Setelahnya, gaya inline yang didefinisikan langsung di atribut `style` elemen akan mengalahkan CSS yang dimuat dari file eksternal atau bagian `<style>` di HTML.
+
+```html
+<p style="color: red;">Teks</p>
+```
+
+Kemudian selector ID (`#`) memiliki bobot yang lebih kuat daripada class atau selector lainnya. Selector class, atribut, dan pseudo-class memiliki prioritas menengah, lebih tinggi dari elemen biasa tetapi lebih rendah dari ID.
+
+```css
+#header { color: blue; }
+.teks { color: green; }
+[type="text"] { ... }
+p:hover { ... }
+```
+
+Selector elemen dasar (tag HTML) memiliki bobot paling rendah dalam hirarkhi.
+
+```css
+p { color: black; }
+p::first-letter { ... }
+```
+
+Ketika dua rule memiliki spesifisitas yang sama, CSS yang terakhir kali diproses (paling bawah dalam file atau yang paling terakhir dimuat) akan diterapkan. Kombinasi selector juga meningkatkan spesifisitas secara keseluruhan.
+
+---
+
+## **Q2:** Mengapa adaptabilitas perangkat menjadi pertimbangan krusial dalam membangun aplikasi web modern, dan apa dampaknya terhadap pengalaman pengguna?
+
+Saat ini, pengguna mengakses web melalui beragam perangkat dengan ukuran layar yang sangat berbeda-beda. Desain yang responsif memastikan bahwa layout, typografi, dan elemen interaktif dapat beradaptasi secara otomatis terhadap berbagai dimensi layar, mulai dari smartphone hingga monitor desktop. Tanpa adaptabilitas ini, pengguna akan mengalami pengalaman yang buruk, seperti konten yang terpotong, navigasi yang sulit digunakan, atau text yang terlalu kecil untuk dibaca.
+
+Situs seperti YouTube dan Laman PBP 25/26 menunjukkan implementasi yang baik dari konsep ini. Mereka secara dinamis mengatur posisi dan ukuran komponen sesuai dengan perangkat yang digunakan, memungkinkan navigasi yang intuitif di layar apa pun. Pengguna dapat dengan mulus berpindah dari desktop ke mobile tanpa kehilangan fungsionalitas.
+
+Sebaliknya, platform seperti SiakNG masih menggunakan layout tetap yang tidak beradaptasi dengan ukuran viewport. Pada perangkat mobile, pengguna dipaksa untuk melakukan pinch-zoom atau horizontal scrolling yang melelahkan, mengurangi accessibility dan kepuasan pengguna secara signifikan.
+
+---
+
+## **Q3:** Apa peran masing-masing dari margin, border, dan padding dalam mengatur spacing pada elemen HTML?
+
+Ketiga properti ini bekerja dalam layer berbeda untuk mengontrol ruang di sekitar konten elemen.
+
+Margin: mengatur jarak di luar batas elemen. Fungsinya adalah menciptakan ruang antara elemen tersebut dengan elemen-elemen tetangga. Margin dapat dikonfigurasi secara individual untuk setiap sisi atau diterapkan sekaligus ke semua arah.
+
+```css
+.element {
+  margin: 20px; /* Semua sisi */
+  margin-top: 10px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+```
+
+Border: garis pembatas yang membentuk kerangka visual elemen, berada di antara padding dan margin. Border dapat dikustomisasi dalam hal ketebalan, gaya (solid, dashed, dotted), dan warna, serta dapat memiliki sudut yang melengkung.
+
+```css
+.element {
+  border: 2px solid black;
+  border-top: 1px dashed red;
+  border-radius: 5px;
+}
+```
+
+Padding: ruang di dalam border, antara konten sebenarnya dengan garis tepi elemen. Padding memberikan "napas" visual kepada konten, membuatnya tidak terasa sesak. Seperti margin, padding dapat disesuaikan per sisi.
+
+```css
+.element {
+  padding: 15px; /* Semua sisi */
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+```
+
+<img width="368" height="auto" alt="image" src="https://github.com/user-attachments/assets/c02fa582-5b1b-4c82-bd22-901f44225a29" />
+
+Source: [Hostinger](https://www.hostinger.com/my/tutorials/padding-vs-margin)
+
+---
+
+## **Q4:** Bandingkan Flexbox dan Grid Layout: kapan sebaiknya menggunakan masing-masing, dan apa keunggulan karakteristik mereka?
+
+Flexbox: model layout satu dimensi yang ideal untuk mengatur item secara berurutan dalam satu garis (horizontal atau vertikal). Flexbox unggul dalam mengontrol alignment, justification, dan distribusi ruang di sepanjang satu axis. Ini sangat berguna untuk navbar, button groups, atau list items yang perlu tersebar dengan konsisten.
+
+```css
+.container {
+  display: flex;
+  justify-content: center; /* Pemusatan horizontal */
+  align-items: center; /* Pemusatan vertikal */
+}
+```
+
+Grid Layout: model dua dimensi yang memberikan kontrol simultan atas baris dan kolom. Grid cocok untuk struktur halaman yang kompleks, seperti dashboard dengan header, sidebar, dan content area, atau gallery dengan banyak item yang terorganisir dalam baris dan kolom. Grid juga lebih fleksibel untuk membuat tata letak yang asymmetris dan responsif pada skala besar.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+```
+
+Pilih Flexbox untuk layout linear dan component-level arrangement. Pilih Grid untuk layout global halaman atau struktur multi-dimensional yang membutuhkan kontrol presisi pada positioning.
+
+---
+
+## **Q5:** Jelaskan pendekatan praktis yang kamu ambil dalam menyelesaikan tugas desain ini dengan cara sistematis dan terstruktur.
+
+Mirip seperti pengerjaan Tugas-tugas sebelumnya, saya mulai dengan tutorial dan bertanya kepada LLM (read: chatgpt/claude) untuk meningkatkan pemahaman dan bertanya hal yang membingungkan selama pengerjaan tugas ini. Step saya dalam pemenuhan checklist adalah seperti ini:
+
+1. Mengembangkan fitur backend terlebih dahulu dengan mengimplementasikan logic untuk delete dan edit product di `views.py`, kemudian mendaftarkan routing endpoint baru di `urls.py`.
+2. Menerapkan styling framework modern ke template HTMLa untuk meningkatkan visual design.
+3. Mengonfigurasi Django static files system agar file CSS eksternal dan aset-aset lainnya dapat diakses dan dimuat dengan benar oleh browser.
+4. Mendokumentasikan pemahaman dan penjelasan teknis melalui file `README.md`.
+5. Melakukan version control dengan git commit dan mendeploy hasil akhir ke platform PWS.
+
+---
+## Checklist untuk tugas ini adalah sebagai berikut:
+
+- [X] Implementasikan fungsi untuk menghapus dan mengedit **product**.
+
+- [X] Kustomisasi desain pada *template* HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS *framework* (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+  - [X] Kustomisasi halaman **login**, **register**, tambah **product**, edit **product**, dan detail **product** semenarik mungkin.
+  - [X] Kustomisasi halaman daftar **product** menjadi lebih menarik dan *responsive*. Kemudian, perhatikan kondisi berikut:
+    - [X] Jika pada aplikasi belum ada **product** yang tersimpan, halaman daftar **product** akan menampilkan gambar dan pesan bahwa belum ada **product** yang terdaftar.
+    - [X] Jika sudah ada **product** yang tersimpan, halaman daftar **product** akan menampilkan detail setiap **product** dengan menggunakan *card* (tidak boleh sama persis dengan desain pada Tutorial!).
+    - [X] Untuk setiap *card product*, buatlah dua buah *button* untuk mengedit dan menghapus **product** pada *card* tersebut!
+  - [X] Buatlah *navigation bar* (navbar) untuk fitur-fitur pada aplikasi yang *responsive* terhadap perbedaan ukuran *device*, khususnya *mobile* dan *desktop*.
+- [X] Menjawab beberapa pertanyaan berikut pada `README.md` pada *root folder* (silakan modifikasi `README.md` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+  - [X] Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+  - [X] Mengapa *responsive design* menjadi konsep yang penting dalam pengembangan aplikasi *web*? Berikan contoh aplikasi yang sudah dan belum menerapkan *responsive design*, serta jelaskan mengapa!
+  - [X] Jelaskan perbedaan antara *margin*, *border*, dan *padding*, serta cara untuk mengimplementasikan ketiga hal tersebut!
+  - [X] Jelaskan konsep *flex box* dan *grid layout* beserta kegunaannya!
+  - [X] Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial)!
+
+- [X] Melakukan `add-commit-push` ke GitHub.
+</details>
 
 <details><summary>Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django</summary>
 
