@@ -2,6 +2,64 @@
 ### Deltakristiano Kurniaputra - NPM: 2406425810
 #### Link Deployment: https://deltakristiano-kurniaputra-nextjersey.pbp.cs.ui.ac.id/
 
+
+<details><summary>Tugas 6: Javascript dan AJAX
+</summary>
+
+## **Q1:** Apa perbedaan antara synchronous request dan asynchronous request?
+
+Pada request synchronous, client mengirim permintaan ke server dan aplikasi akan berhenti beroperasi hingga respons diterima dan diproses. Berbeda dengan asynchronous, di mana client dapat langsung melanjutkan proses lainnya setelah mengirim permintaan tanpa perlu menunggu respons server. Respons tersebut akan dihandle naantinya, melalui callback atau promise.
+
+---
+
+## **Q2:** Bagaimana AJAX bekerja di Django (alur request–response)?
+
+Javascript di client mengirimkan request (GET/POST) ke server Django, kemudian Django routing system mengarahkan request tersebut ke view yang tepat untuk diproses. View kemudian mengolah request, mengambil data dari database jika diperlukan, dan mengembalikan hasilnya dalam bentuk JSON atau HTML. Terakhir, respons diterima oleh AJAX untuk melakukan update pada elemen halaman tertentu tanpa refresh keseluruhan.
+
+---
+
+## **Q3:** Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
+
+1. hanya data yang dibutuhkan yang ditransfer (bukan seluruh halaman), menghemat bandwidth dan mempercepat response time. 
+2. format data yang "padet" seperti JSON mengurangi beban jaringan dan server. 
+3. interaksi pengguna menjadi lebih lancar karena tidak ada delay untuk refresh halaman. 
+4. konten dapat diperbarui secara real-time sehingga aplikasi terasa lebih dinamis dan responsif.
+
+---
+
+## **Q4:** Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+
+Memakai HTTPS untuk mengenkripsi komunikasi data, menyertakan CSRF token pada setiap POST request, lakukan validasi dan sanitasi input di server untuk mencegah SQL injection dan serangan sejenis, manfaatkan sistem autentikasi bawaan Django untuk pengelolaan session, hindari mengirimkan data sensitif (password) dalam respons, dan terapkan rate limiting pada login attempts untuk mencegah brute force attack.
+
+---
+
+## **Q5:** Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+
+ AJAX secara signifikan meningkatkan user experience dengan menciptakan interaksi yang lebih cepat dan responsif. Pengguna dapat melakukan berbagai aksi seperti submit form, load konten tambahan, atau update bagian spesifik dari halaman tanpa harus menunggu refresh halaman keseluruhan. Hal ini mengurangi waktu tunggu dan memberikan kesan bahwa aplikasi web bekerja secara real-time dan interaktif.
+
+---
+
+## Checklist Tugas
+- [X] Mengubah fitur - fitur tugas sebelumnya menggunakan AJAX
+  - [X] Fitur CRUD (Create Read Update Delete) product menggunakan AJAX (tidak boleh menggunakan dari context render kecuali untuk keperluan AJAX)
+  - [X] Mengubah Login dan Register menggunakan AJAX.
+- [X] Tampilan baru
+  - [X] Membuat tombol yang akan menampilkan modal untuk create dan update product dalam bentuk form.
+  - [X] Membuat modal konfirmasi saat pengguna ingin menghapus product
+  - [X] Saat melakukan aksi dari modal, product akan di-refresh tanpa perlu melakukan reload halaman (Refresh melalui browser).
+  - [X] Membuat tombol refresh yang akan menampilkan list product terbaru tanpa perlu reload halaman (Refresh melalui browser)
+  - [X] Membuat Loading, Empty, dan Error state melalui Javascript.
+  - [X] Menampilkan Toast saat create, update, atau delete product dan saat login, logout, dan register (tidak boleh sama persis dengan tutorial).
+- [X] Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+  - [X] Apa perbedaan antara synchronous request dan asynchronous request?
+  - [X] Bagaimana AJAX bekerja di Django (alur request–response)?
+  - [X] Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
+  - [X] Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+  - [X] Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+- [X] Melakukan add-commit-push ke GitHub.
+</details>
+
+
 <details><summary>Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS</summary>
 
 ---

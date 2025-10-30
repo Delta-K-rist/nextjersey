@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta %}
-<title>{{ product.name }} - NextJersey</title>
+<title>Product Detail - NextJersey</title>
 {% endblock meta %}
 
 {% block content %}
@@ -16,21 +16,31 @@
             </a>
         </div>
 
+        <!-- Loading State -->
+        <div id="loading-state" class="bg-gray-800 rounded-lg border border-gray-700 p-12 text-center">
+            <svg class="animate-spin h-8 w-8 text-red-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            <p class="text-gray-300 mt-3">Loading product detail...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="bg-gray-800 rounded-lg border border-gray-700 p-12 text-center hidden">
+            <div class="w-16 h-16 mx-auto mb-4">
+                <div class="text-red-500 text-5xl">⚠️</div>
+            </div>
+            <h3 class="text-lg font-medium text-white mb-2">Failed to load product</h3>
+            <p class="text-gray-400">Please try again later.</p>
+        </div>
+
         <!-- Main Product Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div id="product-content" class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 hidden">
 
             <!-- Product Images Section -->
             <div class="space-y-4">
                 <div class="aspect-square relative overflow-hidden rounded-lg bg-gray-800">
-                    {% if product.thumbnail %}
-                        <img src="{{ product.thumbnail }}"
-                             alt="{{ product.name }}"
-                             class="w-full h-full object-cover">
-                    {% else %}
-                        <img src="{% static 'image/placeholder-thumbnail.jpg' %}"
-                             alt="{{ product.name }}"
-                             class="w-full h-full object-cover">
-                    {% endif %}
+                    <img id="product-image" src="" alt="" class="w-full h-full object-cover">
                 </div>
             </div>
 
@@ -39,37 +49,25 @@
 
                 <!-- Product Header -->
                 <div>
-                    <div class="flex flex-wrap items-center gap-2 mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium text-white" style="background-color: #DA010E;">
-                            {{ product.get_category_display }}
-                        </span>
-                        {% if product.is_featured %}
-                            <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800">
-                                Featured
-                            </span>
-                        {% endif %}
-                        {% if product.is_product_hot %}
-                            <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-red-100 text-red-800">
-                                Hot
-                            </span>
-                        {% endif %}
+                    <div id="badges-container" class="flex flex-wrap items-center gap-2 mb-4">
+                        <!-- Dynamic badges will be inserted here -->
                     </div>
 
-                    <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 italic">
-                        {{ product.name }}
+                    <h1 id="product-title" class="text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 italic">
+                        <!-- Title will be inserted here -->
                     </h1>
 
-                    {% if product.price %}
-                        <div class="mb-6">
-                            <span class="text-3xl lg:text-4xl font-bold" style="color: #DA010E;">${{ product.price }}</span>
-                        </div>
-                    {% endif %}
+                    <div id="price-container" class="mb-6 hidden">
+                        <span class="text-3xl lg:text-4xl font-bold" style="color: #DA010E;">$<span id="product-price"></span></span>
+                    </div>
 
                     <div class="flex flex-wrap items-center text-sm text-gray-400 gap-4 mb-6">
-                        <time datetime="{{ product.created_at|date:'c' }}">
-                            {{ product.created_at|date:"M j, Y g:i A" }}
+                        <time id="product-date">
+                            <!-- Date will be inserted here -->
                         </time>
-                        <span>{{ product.item_views }} views</span>
+                        <span id="product-views">
+                            <!-- Views will be inserted here -->
+                        </span>
                     </div>
                 </div>
 
@@ -104,21 +102,11 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
-                                <span class="text-gray-300 font-medium text-sm">
-                                    {% if product.user %}
-                                        {{ product.user.username|slice:":1"|upper }}
-                                    {% else %}
-                                        A
-                                    {% endif %}
-                                </span>
+                                <span id="seller-avatar" class="text-gray-300 font-medium text-sm">A</span>
                             </div>
                             <div>
                                 <div class="font-medium text-white">
-                                    {% if product.user %}
-                                        {{ product.user.username }}
-                                    {% else %}
-                                        Anonymous Seller
-                                    {% endif %}
+                                    <p id="seller-name">Loading...</p>
                                 </div>
                                 <p class="text-sm text-gray-400">Verified Seller</p>
                             </div>
@@ -135,7 +123,7 @@
         </div>
 
         <!-- Product Details Tabs/Sections -->
-        <div class="mt-12 space-y-8">
+        <div id="details-section" class="mt-12 space-y-8 hidden">
 
             <!-- Product Description -->
             <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
@@ -144,8 +132,8 @@
                 </div>
                 <div class="p-6">
                     <div class="prose prose-lg max-w-none">
-                        <div class="text-gray-300 leading-relaxed whitespace-pre-line text-base sm:text-lg">
-                            {{ product.description }}
+                        <div id="product-description" class="text-gray-300 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+                            <!-- Description will be inserted here -->
                         </div>
                     </div>
                 </div>
@@ -160,15 +148,15 @@
                     <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <dt class="font-medium text-white">Category</dt>
-                            <dd class="text-gray-300 mt-1">{{ product.get_category_display }}</dd>
+                            <dd id="product-category" class="text-gray-300 mt-1">Loading...</dd>
                         </div>
                         <div>
                             <dt class="font-medium text-white">Date Listed</dt>
-                            <dd class="text-gray-300 mt-1">{{ product.created_at|date:"M j, Y" }}</dd>
+                            <dd id="product-created-date" class="text-gray-300 mt-1">Loading...</dd>
                         </div>
                         <div>
                             <dt class="font-medium text-white">Views</dt>
-                            <dd class="text-gray-300 mt-1">{{ product.item_views }}</dd>
+                            <dd id="product-views-detail" class="text-gray-300 mt-1">Loading...</dd>
                         </div>
                     </dl>
                 </div>
@@ -194,4 +182,147 @@
         </div>
     </div>
 </div>
+
+<script>
+// Configuration
+const PRODUCT_ID = "{{ product.id }}";
+const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', PRODUCT_ID);
+
+// DOM Elements
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const productContent = document.getElementById('product-content');
+const detailsSection = document.getElementById('details-section');
+const badgesContainer = document.getElementById('badges-container');
+const productTitle = document.getElementById('product-title');
+const priceContainer = document.getElementById('price-container');
+const productPrice = document.getElementById('product-price');
+const productDate = document.getElementById('product-date');
+const productViews = document.getElementById('product-views');
+const productImage = document.getElementById('product-image');
+const productDescription = document.getElementById('product-description');
+const sellerName = document.getElementById('seller-name');
+const sellerAvatar = document.getElementById('seller-avatar');
+const productCategory = document.getElementById('product-category');
+const productCreatedDate = document.getElementById('product-created-date');
+const productViewsDetail = document.getElementById('product-views-detail');
+
+// Get readable category name
+function getReadableCategoryName(categoryCode) {
+    const categoryMapping = {
+        club_home: "Club Home",
+        club_away: "Club Away",
+        national: "National Team",
+        training: "Training",
+        other: "Other"
+    };
+    return categoryMapping[categoryCode] || categoryCode;
+}
+
+// Show/hide page sections
+function showState(state) {
+    loadingState.classList.toggle('hidden', state !== 'loading');
+    errorState.classList.toggle('hidden', state !== 'error');
+    productContent.classList.toggle('hidden', state !== 'ready');
+    detailsSection.classList.toggle('hidden', state !== 'ready');
+}
+
+// Render product content
+function renderProduct(product) {
+    // Set title
+    productTitle.textContent = product.name;
+    document.title = `${product.name} - NextJersey`;
+
+    // Set badges
+    badgesContainer.innerHTML = '';
+
+    // Category badge
+    const categoryBadge = document.createElement('span');
+    categoryBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium text-white';
+    categoryBadge.style.backgroundColor = '#DA010E';
+    categoryBadge.textContent = getReadableCategoryName(product.category);
+    badgesContainer.appendChild(categoryBadge);
+
+    // Featured badge
+    if (product.is_featured) {
+        const featuredBadge = document.createElement('span');
+        featuredBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800';
+        featuredBadge.textContent = 'Featured';
+        badgesContainer.appendChild(featuredBadge);
+    }
+
+    // Hot badge
+    if (product.item_views > 20) {
+        const hotBadge = document.createElement('span');
+        hotBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-red-100 text-red-800';
+        hotBadge.textContent = 'Hot';
+        badgesContainer.appendChild(hotBadge);
+    }
+
+    // Set price
+    if (product.price && product.price > 0) {
+        productPrice.textContent = product.price;
+        priceContainer.classList.remove('hidden');
+    } else {
+        priceContainer.classList.add('hidden');
+    }
+
+    // Set date and views
+    const formattedDate = new Date(product.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    productDate.textContent = formattedDate;
+    productViews.textContent = `${product.item_views} views`;
+
+    // Set image
+    productImage.src = product.thumbnail || "{% static 'image/placeholder-thumbnail.jpg' %}";
+    productImage.alt = product.name;
+
+    // Set description
+    productDescription.textContent = product.description;
+
+    // Set seller info
+    const authorName = product.user_username || 'Anonymous Seller';
+    sellerName.textContent = authorName;
+    sellerAvatar.textContent = authorName.charAt(0).toUpperCase();
+
+    // Set details
+    productCategory.textContent = getReadableCategoryName(product.category);
+    productCreatedDate.textContent = new Date(product.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+    productViewsDetail.textContent = product.item_views;
+}
+
+// Fetch product detail
+async function loadProductDetail() {
+    try {
+        showState('loading');
+
+        const response = await fetch(PRODUCT_DETAIL_ENDPOINT, {
+            headers: { 'Accept': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch product detail');
+        }
+
+        const productData = await response.json();
+        renderProduct(productData);
+        showState('ready');
+    } catch (error) {
+        console.error('Error loading product detail:', error);
+        showState('error');
+    }
+}
+
+// Initialize page
+loadProductDetail();
+</script>
 {% endblock content %}
