@@ -162,7 +162,8 @@ def edit_product(request, id):
         return redirect('main:show_main')
 
     context = {
-        'form': form
+        'form': form,
+        'product': products
     }
 
     return render(request, "edit_product.html", context)
@@ -183,6 +184,14 @@ def add_product_entry_ajax(request):
     is_featured = request.POST.get("is_featured") == 'on'  # checkbox handling
     user = request.user
 
+    # Server-side validation for price
+    try:
+        price_float = float(price) if price else 0.0
+        if price_float <= 0:
+            return HttpResponse(b"INVALID_PRICE", status=400)
+    except (ValueError, TypeError):
+        return HttpResponse(b"INVALID_PRICE", status=400)
+
     new_product = Product(
         name=name,
         description=description,
@@ -195,3 +204,37 @@ def add_product_entry_ajax(request):
     new_product.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+@require_POST
+def edit_product_entry_ajax(request, id):
+    product = get_object_or_404(Product, pk=id)
+
+    # Check if user owns the product
+    if product.user != request.user:
+        return HttpResponse(b"FORBIDDEN", status=403)
+
+    name = strip_tags(request.POST.get("name"))  # strip HTML tags!
+    description = strip_tags(request.POST.get("description"))  # strip HTML tags!
+    price = request.POST.get("price")
+    category = request.POST.get("category")
+    thumbnail = request.POST.get("thumbnail")
+    is_featured = request.POST.get("is_featured") == 'on'  # checkbox handling
+
+    # Server-side validation for price
+    try:
+        price_float = float(price) if price else 0.0
+        if price_float <= 0:
+            return HttpResponse(b"INVALID_PRICE", status=400)
+    except (ValueError, TypeError):
+        return HttpResponse(b"INVALID_PRICE", status=400)
+
+    product.name = name
+    product.description = description
+    product.price = price
+    product.category = category
+    product.thumbnail = thumbnail
+    product.is_featured = is_featured
+    product.save()
+
+    return HttpResponse(b"UPDATED", status=200)
