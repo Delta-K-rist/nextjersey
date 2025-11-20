@@ -17,7 +17,9 @@ from main.views import (
     edit_product,
     delete_product,
     add_product_entry_ajax,
-    edit_product_entry_ajax
+    edit_product_entry_ajax,
+
+    proxy_image
 )
 
 app_name = 'main'
@@ -42,4 +44,5 @@ urlpatterns = [
     path('create-product-ajax/', add_product_entry_ajax, name='add_product_entry_ajax'),
     path('edit-product-ajax/<uuid:id>/', edit_product_entry_ajax, name='edit_product_entry_ajax'),
 
+    path('proxy-image/', proxy_image, name='proxy_image')
 ]
